@@ -16,15 +16,17 @@ public class Painter : MonoBehaviour
     [SerializeField]
     private float tolerance;
 
+    private PaintBucket paintBucket;
     private LineRenderer currentLineRender;
     private List<Vector2> line = new List<Vector2>();
     private List<int> deleteList = new List<int>();
     private bool draw;
     private Camera camera;
-    public int pointsUsed;
+    public int totalPointsUse;
 
     private void Start()
     {
+        paintBucket = FindAnyObjectByType<PaintBucket>();
         GetComponent<BoxCollider2D>().size = GetComponent<RectTransform>().rect.size;
         camera = Camera.main;
     }
@@ -42,6 +44,7 @@ public class Painter : MonoBehaviour
         AddPointToLine(GetFingerPos());
         line = SimplifyBezierCurve(line);
         DrawLine();
+        CountPoints();
     }
 
     private void OnMouseDown()
@@ -61,7 +64,6 @@ public class Painter : MonoBehaviour
     private void OnMouseUp()
     {
         draw = false;
-        pointsUsed += line.Count;
         line.Clear();
         Debug.Log("Painter up");
     }
@@ -115,5 +117,42 @@ public class Painter : MonoBehaviour
         {
             currentLineRender.SetPosition(i, line[i]);
         }
+    }
+
+    private void CountPoints()
+    {
+        totalPointsUse = 0;
+        foreach (var lr in GetComponentsInChildren<LineRenderer>())
+        {
+            totalPointsUse += lr.positionCount;
+        }
+        paintBucket.UpdateBucket(totalPointsUse);
+    }
+
+    public bool CheckCorrect()
+    {
+        float inCorrectPos = 0;
+        foreach (var lr in GetComponentsInChildren<LineRenderer>())
+        {
+            for (int i = 0; i < lr.positionCount; i++)
+            {
+                Vector3 dotPosition = lr.GetPosition(i);
+                dotPosition.z = 5f;
+
+                Collider2D[] col = Physics2D.OverlapPointAll(dotPosition);
+
+                if (col.Length > 0)
+                {
+                    Debug.Log("collenght" + col.Length);
+                    if (col[0].CompareTag("Symbol"))
+                    {
+                        inCorrectPos++;
+                    }
+                }
+            }
+        }
+        float correctPercent = inCorrectPos / paintBucket.totalPool;
+        Debug.Log("CorrectPercent" + correctPercent);
+        return correctPercent > 0.7f;
     }
 }
