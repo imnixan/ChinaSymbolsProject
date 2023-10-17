@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private Painter drawCanvas;
 
     [SerializeField]
-    private Collider2D symbolSample;
+    private Symbol symbol;
 
     private Collider2D canvasCol;
 
@@ -17,16 +17,21 @@ public class GameManager : MonoBehaviour
         StartPainting();
     }
 
+    public float GetMaxPoints()
+    {
+        return symbol.GetMaxPoints();
+    }
+
     private void StartPainting()
     {
         drawCanvas.gameObject.SetActive(true);
-        symbolSample.enabled = false;
+        symbol.DisableCollider();
     }
 
     public void StopPainting()
     {
         canvasCol.enabled = false;
-        symbolSample.enabled = true;
+        symbol.EnableCollider();
         if (drawCanvas.CheckCorrect())
         {
             Debug.Log("win");

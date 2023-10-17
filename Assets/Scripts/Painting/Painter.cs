@@ -65,7 +65,6 @@ public class Painter : MonoBehaviour
     {
         draw = false;
         line.Clear();
-        Debug.Log("Painter up");
     }
 
     private void InitLineRenderer(LineRenderer lr)
@@ -76,6 +75,8 @@ public class Painter : MonoBehaviour
         lr.startColor = Color.black;
         lr.endColor = lr.startColor;
         lr.useWorldSpace = true;
+        //lr.numCapVertices = 100;
+        //lr.numCornerVertices = 100;
     }
 
     private void AddPointToLine(Vector2 point)
@@ -143,7 +144,6 @@ public class Painter : MonoBehaviour
 
                 if (col.Length > 0)
                 {
-                    Debug.Log("collenght" + col.Length);
                     if (col[0].CompareTag("Symbol"))
                     {
                         inCorrectPos++;

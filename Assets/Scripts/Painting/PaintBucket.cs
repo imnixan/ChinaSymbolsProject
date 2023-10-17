@@ -4,10 +4,7 @@ using UnityEngine.UI;
 
 public class PaintBucket : MonoBehaviour
 {
-    [SerializeField]
-    public int totalPool;
-
-    [SerializeField]
+    public float totalPool;
     private GameManager gm;
 
     private Image image;
@@ -15,6 +12,8 @@ public class PaintBucket : MonoBehaviour
     private void Start()
     {
         image = GetComponent<Image>();
+        gm = FindAnyObjectByType<GameManager>();
+        totalPool = gm.GetMaxPoints();
     }
 
     public void UpdateBucket(int pointUsed)
