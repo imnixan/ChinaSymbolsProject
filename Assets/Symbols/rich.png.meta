@@ -139,10 +139,10 @@ TextureImporter:
       name: rich_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1360
-        height: 1360
+        x: 255
+        y: 180
+        width: 845
+        height: 1002
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: rich_1
       rect:
         serializedVersion: 2
-        x: 1360
-        y: 0
-        width: 1360
-        height: 1360
+        x: 1580
+        y: 168
+        width: 867
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,7 +171,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ddaec1b4e865384897eeddb77d0fda1
+      spriteID: 4d076c91d409cce4c9bbefa14ef9853f
       internalID: 950375046
       vertices: []
       indices: 
